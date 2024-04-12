@@ -3,16 +3,17 @@ name: Deploy
 on:
   push: 
     branches:
-      -  master
+      - master
   jobs:
     deploy-laravel:
-      runs-on:  ubuntu-latest
+      runs-on: ubuntu-latest
       steps:
-        -  uses: actions/checkout@v2
-        -  name: Deploy to server
-           uses: appleboy/ssh-action@v1.0.3
-           with:
-              host:  ${{  secrets.HOST  }}
-              username:  ${{  secrets.USERNAME  }}
-              key:  ${{  secrets.SSHKEY  }}
+        - uses: actions/checkout@v2
+        - name: SSH Remote Commands
+          uses: appleboy/ssh-action@v1.0.3
+            
+          with:
+              host: ${{  secrets.HOST  }}
+              username: ${{  secrets.USERNAME  }}
+              key: ${{  secrets.SSHKEY  }}
               script: "cd /home/ubuntu && ./laravel.sh"
